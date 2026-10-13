@@ -1,0 +1,463 @@
+{
+  "files": [
+    {
+      "file": "01_clean.mp4",
+      "truth": "authentic",
+      "expected": "likely authentic",
+      "acceptable": [
+        "likely authentic",
+        "inconclusive"
+      ],
+      "state": "likely authentic",
+      "p": 0.1694,
+      "confidence": 0.8306,
+      "ok": true,
+      "exact": true,
+      "explanation": "Likely authentic (P(manipulated) = 0.17). Checks finding nothing anomalous: audio.hf_cutoff, audio.noise_floor, metadata.durations, metadata.timestamps, sync.lipsync. Modalities assessed: audio, metadata, sync, visual.",
+      "reasons": [],
+      "top": [],
+      "truth_segments": 0,
+      "truth_flagged": 0,
+      "wall_s": 9.397541100042872,
+      "screen_s": 0.365,
+      "deadline_s": 7.8,
+      "budget_s": 20.0,
+      "unlimited_s": 7.938,
+      "coverage": 1.0,
+      "controls": 4,
+      "control_hits": 0,
+      "unanalysed": [],
+      "analysed": [
+        {
+          "start": 6.0,
+          "end": 8.0,
+          "kind": "control"
+        },
+        {
+          "start": 2.0,
+          "end": 4.0,
+          "kind": "control"
+        },
+        {
+          "start": 4.0,
+          "end": 6.0,
+          "kind": "control"
+        },
+        {
+          "start": 0.0,
+          "end": 2.0,
+          "kind": "control"
+        }
+      ]
+    },
+    {
+      "file": "02_voice_swap.mp4",
+      "truth": "manipulated",
+      "expected": "likely manipulated",
+      "acceptable": [
+        "likely manipulated",
+        "inconclusive"
+      ],
+      "state": "likely manipulated",
+      "p": 0.7013,
+      "confidence": 0.7013,
+      "ok": true,
+      "exact": true,
+      "explanation": "Likely manipulated (P(manipulated) = 0.70). Main evidence for manipulation: audio.hf_cutoff at 2.44-5.62s; provenance.merkle at 2.00-8.00s; sync.lipsync at 2.40-5.84s. Modalities assessed: audio, metadata, provenance, sync, visual.",
+      "reasons": [],
+      "top": [
+        "audio.hf_cutoff (2.4-5.6s)",
+        "provenance.merkle (2.0-8.0s)",
+        "sync.lipsync (2.4-5.8s)"
+      ],
+      "truth_segments": 3,
+      "truth_flagged": 3,
+      "wall_s": 7.3620043999981135,
+      "screen_s": 0.355,
+      "deadline_s": 5.129,
+      "budget_s": 20.0,
+      "unlimited_s": 5.026,
+      "coverage": 1.0,
+      "controls": 2,
+      "control_hits": 0,
+      "unanalysed": [],
+      "analysed": [
+        {
+          "start": 1.75,
+          "end": 6.25,
+          "kind": "flagged"
+        },
+        {
+          "start": 0.0,
+          "end": 1.75,
+          "kind": "control"
+        },
+        {
+          "start": 6.25,
+          "end": 8.0,
+          "kind": "control"
+        }
+      ]
+    },
+    {
+      "file": "03_splice.mp4",
+      "truth": "manipulated",
+      "expected": "likely manipulated",
+      "acceptable": [
+        "likely manipulated",
+        "inconclusive"
+      ],
+      "state": "likely manipulated",
+      "p": 0.7273,
+      "confidence": 0.7273,
+      "ok": true,
+      "exact": true,
+      "explanation": "Likely manipulated (P(manipulated) = 0.73). Main evidence for manipulation: provenance.lineage at 5.90-6.10s; visual.noise_residual at 3.00-4.50s; provenance.merkle at 1.00-8.00s. Modalities assessed: audio, metadata, provenance, sync, visual.",
+      "reasons": [],
+      "top": [
+        "provenance.lineage (5.9-6.1s)",
+        "visual.noise_residual (3.0-4.5s)",
+        "provenance.merkle (1.0-8.0s)"
+      ],
+      "truth_segments": 4,
+      "truth_flagged": 4,
+      "wall_s": 7.888574299984612,
+      "screen_s": 0.337,
+      "deadline_s": 5.091,
+      "budget_s": 20.0,
+      "unlimited_s": 5.009,
+      "coverage": 1.0,
+      "controls": 2,
+      "control_hits": 0,
+      "unanalysed": [],
+      "analysed": [
+        {
+          "start": 2.25,
+          "end": 7.0,
+          "kind": "flagged"
+        },
+        {
+          "start": 7.0,
+          "end": 7.6,
+          "kind": "control"
+        },
+        {
+          "start": 0.0,
+          "end": 2.25,
+          "kind": "control"
+        }
+      ]
+    },
+    {
+      "file": "04_reencoded_3x.mp4",
+      "truth": "authentic_content_recompressed",
+      "expected": "inconclusive",
+      "acceptable": [
+        "inconclusive",
+        "likely authentic"
+      ],
+      "state": "likely authentic",
+      "p": 0.1951,
+      "confidence": 0.8049,
+      "ok": true,
+      "exact": false,
+      "explanation": "Likely authentic (P(manipulated) = 0.20). Main evidence for manipulation: metadata.reencode_generations. Checks finding nothing anomalous: audio.hf_cutoff, audio.noise_floor, metadata.timestamps, provenance.lineage, sync.lipsync. Modalities assessed: audio, metadata, provenance, sync, visual.",
+      "reasons": [],
+      "top": [
+        "metadata.reencode_generations"
+      ],
+      "truth_segments": 0,
+      "truth_flagged": 0,
+      "wall_s": 10.122773200040683,
+      "screen_s": 0.335,
+      "deadline_s": 6.559,
+      "budget_s": 20.0,
+      "unlimited_s": 6.535,
+      "coverage": 1.0,
+      "controls": 4,
+      "control_hits": 0,
+      "unanalysed": [],
+      "analysed": [
+        {
+          "start": 6.0,
+          "end": 8.0,
+          "kind": "control"
+        },
+        {
+          "start": 2.0,
+          "end": 4.0,
+          "kind": "control"
+        },
+        {
+          "start": 4.0,
+          "end": 6.0,
+          "kind": "control"
+        },
+        {
+          "start": 0.0,
+          "end": 2.0,
+          "kind": "control"
+        }
+      ]
+    },
+    {
+      "file": "05_metadata_edited.mp4",
+      "truth": "manipulated_metadata",
+      "expected": "likely manipulated",
+      "acceptable": [
+        "likely manipulated",
+        "inconclusive"
+      ],
+      "state": "likely manipulated",
+      "p": 0.7654,
+      "confidence": 0.7654,
+      "ok": true,
+      "exact": true,
+      "explanation": "Likely manipulated (P(manipulated) = 0.77). Main evidence for manipulation: metadata.timestamps; metadata.encoder. Modalities assessed: audio, metadata, provenance, sync, visual.",
+      "reasons": [],
+      "top": [
+        "metadata.timestamps",
+        "metadata.encoder"
+      ],
+      "truth_segments": 0,
+      "truth_flagged": 0,
+      "wall_s": 11.032601499930024,
+      "screen_s": 0.354,
+      "deadline_s": 6.633,
+      "budget_s": 20.0,
+      "unlimited_s": 7.688,
+      "coverage": 1.0,
+      "controls": 4,
+      "control_hits": 0,
+      "unanalysed": [],
+      "analysed": [
+        {
+          "start": 4.0,
+          "end": 6.0,
+          "kind": "control"
+        },
+        {
+          "start": 6.0,
+          "end": 8.0,
+          "kind": "control"
+        },
+        {
+          "start": 0.0,
+          "end": 2.0,
+          "kind": "control"
+        },
+        {
+          "start": 2.0,
+          "end": 4.0,
+          "kind": "control"
+        }
+      ]
+    },
+    {
+      "file": "06_derived_a.mp4",
+      "truth": "authentic_derivative",
+      "expected": "likely authentic",
+      "acceptable": [
+        "likely authentic",
+        "inconclusive"
+      ],
+      "state": "likely authentic",
+      "p": 0.1341,
+      "confidence": 0.8659,
+      "ok": true,
+      "exact": true,
+      "explanation": "Likely authentic (P(manipulated) = 0.13). Checks finding nothing anomalous: audio.hf_cutoff, audio.noise_floor, metadata.durations, provenance.lineage, sync.lipsync. Modalities assessed: audio, metadata, provenance, sync, visual.",
+      "reasons": [],
+      "top": [],
+      "truth_segments": 0,
+      "truth_flagged": 0,
+      "wall_s": 8.246716400026344,
+      "screen_s": 0.259,
+      "deadline_s": 4.237,
+      "budget_s": 20.0,
+      "unlimited_s": 4.285,
+      "coverage": 1.0,
+      "controls": 3,
+      "control_hits": 0,
+      "unanalysed": [],
+      "analysed": [
+        {
+          "start": 2.0,
+          "end": 4.0,
+          "kind": "control"
+        },
+        {
+          "start": 4.0,
+          "end": 6.0,
+          "kind": "control"
+        },
+        {
+          "start": 0.0,
+          "end": 2.0,
+          "kind": "control"
+        }
+      ]
+    },
+    {
+      "file": "07_derived_b.mp4",
+      "truth": "authentic_derivative",
+      "expected": "likely authentic",
+      "acceptable": [
+        "likely authentic",
+        "inconclusive"
+      ],
+      "state": "likely authentic",
+      "p": 0.1358,
+      "confidence": 0.8642,
+      "ok": true,
+      "exact": true,
+      "explanation": "Likely authentic (P(manipulated) = 0.14). Checks finding nothing anomalous: audio.hf_cutoff, audio.noise_floor, metadata.durations, provenance.lineage, sync.lipsync. Modalities assessed: audio, metadata, provenance, sync, visual.",
+      "reasons": [],
+      "top": [],
+      "truth_segments": 0,
+      "truth_flagged": 0,
+      "wall_s": 8.598183900001459,
+      "screen_s": 0.238,
+      "deadline_s": 4.151,
+      "budget_s": 20.0,
+      "unlimited_s": 4.146,
+      "coverage": 1.0,
+      "controls": 2,
+      "control_hits": 0,
+      "unanalysed": [],
+      "analysed": [
+        {
+          "start": 0.0,
+          "end": 1.25,
+          "kind": "flagged"
+        },
+        {
+          "start": 3.625,
+          "end": 6.0,
+          "kind": "control"
+        },
+        {
+          "start": 1.25,
+          "end": 3.625,
+          "kind": "control"
+        }
+      ]
+    }
+  ],
+  "long": [],
+  "attacks": [
+    {
+      "file": "02_voice_swap.mp4",
+      "attack": "re-encode H.264 crf 35, AAC 64k",
+      "kind": "recompress",
+      "p_before": 0.7013,
+      "state_before": "likely manipulated",
+      "p_after": 0.6368,
+      "state_after": "inconclusive",
+      "top_after": [
+        "audio.noise_floor",
+        "sync.lipsync",
+        "audio.hf_cutoff"
+      ]
+    },
+    {
+      "file": "02_voice_swap.mp4",
+      "attack": "downscale to 50% then re-encode",
+      "kind": "resize",
+      "p_before": 0.7013,
+      "state_before": "likely manipulated",
+      "p_after": 0.6732,
+      "state_after": "inconclusive",
+      "top_after": [
+        "audio.hf_cutoff",
+        "sync.lipsync",
+        "audio.noise_floor"
+      ]
+    },
+    {
+      "file": "02_voice_swap.mp4",
+      "attack": "temporal video noise strength 12, white audio noise amplitude 0.01",
+      "kind": "noise",
+      "p_before": 0.7013,
+      "state_before": "likely manipulated",
+      "p_after": 0.2607,
+      "state_after": "inconclusive",
+      "top_after": [
+        "sync.lipsync"
+      ]
+    },
+    {
+      "file": "03_splice.mp4",
+      "attack": "re-encode H.264 crf 35, AAC 64k",
+      "kind": "recompress",
+      "p_before": 0.7273,
+      "state_before": "likely manipulated",
+      "p_after": 0.4133,
+      "state_after": "inconclusive",
+      "top_after": [
+        "provenance.lineage"
+      ]
+    },
+    {
+      "file": "03_splice.mp4",
+      "attack": "downscale to 50% then re-encode",
+      "kind": "resize",
+      "p_before": 0.7273,
+      "state_before": "likely manipulated",
+      "p_after": 0.4565,
+      "state_after": "inconclusive",
+      "top_after": [
+        "provenance.lineage",
+        "visual.temporal"
+      ]
+    },
+    {
+      "file": "03_splice.mp4",
+      "attack": "temporal video noise strength 12, white audio noise amplitude 0.01",
+      "kind": "noise",
+      "p_before": 0.7273,
+      "state_before": "likely manipulated",
+      "p_after": 0.4117,
+      "state_after": "inconclusive",
+      "top_after": [
+        "provenance.lineage"
+      ]
+    },
+    {
+      "file": "05_metadata_edited.mp4",
+      "attack": "re-encode H.264 crf 35, AAC 64k",
+      "kind": "recompress",
+      "p_before": 0.7654,
+      "state_before": "likely manipulated",
+      "p_after": 0.2534,
+      "state_after": "inconclusive",
+      "top_after": [
+        "metadata.encoder"
+      ]
+    },
+    {
+      "file": "05_metadata_edited.mp4",
+      "attack": "downscale to 50% then re-encode",
+      "kind": "resize",
+      "p_before": 0.7654,
+      "state_before": "likely manipulated",
+      "p_after": 0.2527,
+      "state_after": "inconclusive",
+      "top_after": [
+        "metadata.encoder"
+      ]
+    },
+    {
+      "file": "05_metadata_edited.mp4",
+      "attack": "temporal video noise strength 12, white audio noise amplitude 0.01",
+      "kind": "noise",
+      "p_before": 0.7654,
+      "state_before": "likely manipulated",
+      "p_after": 0.2527,
+      "state_after": "inconclusive",
+      "top_after": [
+        "metadata.encoder"
+      ]
+    }
+  ]
+}

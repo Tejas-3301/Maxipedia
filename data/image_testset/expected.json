@@ -1,0 +1,58 @@
+{
+  "_note": "Evaluation ground truth only. Checks and fusion must never read this file.",
+  "base": "f1_car.jpg",
+  "donor": "podium_aws.jpg",
+  "files": {
+    "clean.jpg": {
+      "ground_truth": "authentic",
+      "acceptable_verdicts": [
+        "likely authentic",
+        "inconclusive"
+      ],
+      "notes": "single compression, camera-like tables, consistent EXIF, matching thumbnail",
+      "sha256": "1b4d893b111e1779c2bf4fa6c877c7f50791879617aff7759004e6bf445d197c"
+    },
+    "spliced.jpg": {
+      "ground_truth": "manipulated",
+      "acceptable_verdicts": [
+        "likely manipulated",
+        "inconclusive"
+      ],
+      "region": [
+        1043,
+        211,
+        300,
+        300
+      ],
+      "notes": "pasted region with its own compression history; original thumbnail kept",
+      "sha256": "d9cc512b2b45d09fe03e2bdbfe29b7e879d3ed66e61df098595fe611371bb4c5"
+    },
+    "resaved_3gen.jpg": {
+      "ground_truth": "authentic_content_recompressed",
+      "acceptable_verdicts": [
+        "inconclusive",
+        "likely authentic"
+      ],
+      "notes": "IJG q80 -> q65 -> q50, EXIF lost",
+      "sha256": "c6a36d5ee7aacb02fae31b2c6d82be88dfb5c46612423fdabaa058afcbed20ff"
+    },
+    "exif_edited.jpg": {
+      "ground_truth": "manipulated_metadata",
+      "acceptable_verdicts": [
+        "likely manipulated",
+        "inconclusive"
+      ],
+      "notes": "ModifyDate > DateTimeOriginal, Photoshop Software, foreign thumbnail",
+      "sha256": "473ee688824138c8bf312922375dcfd163ba7abbbdff953e9158f6f2d183882a"
+    },
+    "screenshot.png": {
+      "ground_truth": "authentic_screenshot",
+      "acceptable_verdicts": [
+        "inconclusive",
+        "likely authentic"
+      ],
+      "notes": "lossless PNG, no JPEG history or EXIF: most image checks not assessable",
+      "sha256": "5e0a9bb905454b17fa437faceaf63082f9af5d21065b97c523bdd5b4f181d9cf"
+    }
+  }
+}

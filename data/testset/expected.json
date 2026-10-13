@@ -1,0 +1,349 @@
+{
+  "_note": "Evaluation ground truth only. Checks and fusion must never read this file.",
+  "generator": {
+    "script": "scripts/make_testset.py",
+    "seed": 1337,
+    "base": "synthetic",
+    "tts_engine": "windows_sapi",
+    "fps": 25,
+    "duration_s": 8.0,
+    "resolution": [
+      640,
+      480
+    ],
+    "audio_sr": 44100,
+    "generated_at": "2026-10-12T10:12:56+00:00"
+  },
+  "files": {
+    "01_clean.mp4": {
+      "ground_truth": "authentic",
+      "expected_verdict": "likely authentic",
+      "acceptable_verdicts": [
+        "likely authentic",
+        "inconclusive"
+      ],
+      "parent": null,
+      "manipulations": [],
+      "should_trigger": [],
+      "should_not_trigger": [
+        "visual",
+        "audio",
+        "sync",
+        "metadata"
+      ],
+      "notes": "Single encode (x264 crf18 g50, AAC 192k). Constant sensor noise and room tone throughout.",
+      "sha256": "58a8bf0d4f21cecb1854cbf7ef5a29ae8b52f0a58aaee78bec8ad84bcc3a8697"
+    },
+    "02_voice_swap.mp4": {
+      "ground_truth": "manipulated",
+      "expected_verdict": "likely manipulated",
+      "acceptable_verdicts": [
+        "likely manipulated",
+        "inconclusive"
+      ],
+      "parent": "01_clean.mp4",
+      "manipulations": [
+        {
+          "type": "tts_voice_swap",
+          "engine": "windows_sapi",
+          "text": "I never authorized that transfer. Please cancel it right now.",
+          "segment": {
+            "start": 2.5,
+            "end": 5.5,
+            "unit": "s"
+          }
+        }
+      ],
+      "should_trigger": [
+        {
+          "modality": "audio",
+          "signal": "vocoder/TTS high-frequency cutoff or spectral mismatch",
+          "segment": {
+            "start": 2.5,
+            "end": 5.5,
+            "unit": "s"
+          }
+        },
+        {
+          "modality": "audio",
+          "signal": "noise-floor / room-tone discontinuity at splice points",
+          "segment": {
+            "start": 2.5,
+            "end": 5.5,
+            "unit": "s"
+          },
+          "points_s": [
+            2.5,
+            5.5
+          ]
+        },
+        {
+          "modality": "sync",
+          "signal": "mouth aperture uncorrelated with audio envelope",
+          "segment": {
+            "start": 2.5,
+            "end": 5.5,
+            "unit": "s"
+          },
+          "requires_face": true
+        }
+      ],
+      "should_not_trigger": [
+        "visual"
+      ],
+      "notes": "Video stream is a bit-exact copy of 01. 10 ms crossfades at edges. synthetic cartoon face; MediaPipe may not detect it, so sync checks may legitimately be not_assessable.",
+      "sha256": "79bee1322ebf8c427f291014bb5a40f7d1f738c2cce282f0ea8dc0f2ace2dc46"
+    },
+    "03_splice.mp4": {
+      "ground_truth": "manipulated",
+      "expected_verdict": "likely manipulated",
+      "acceptable_verdicts": [
+        "likely manipulated",
+        "inconclusive"
+      ],
+      "parent": "01_clean.mp4",
+      "manipulations": [
+        {
+          "type": "region_replacement",
+          "segment": {
+            "start": 3.0,
+            "end": 4.6,
+            "unit": "s"
+          },
+          "region": [
+            384,
+            48,
+            179,
+            139
+          ],
+          "detail": "static patch from frame 0, blurred + JPEG q35, hides moving ball (object removal)"
+        },
+        {
+          "type": "temporal_cut",
+          "removed_source_segment": {
+            "start": 6.0,
+            "end": 6.4,
+            "unit": "s"
+          },
+          "cut_point_s": 6.0,
+          "detail": "0.4s of frames and matching audio removed"
+        }
+      ],
+      "should_trigger": [
+        {
+          "modality": "visual",
+          "signal": "ELA / noise-residual inconsistency in region",
+          "segment": {
+            "start": 3.0,
+            "end": 4.6,
+            "unit": "s"
+          },
+          "region": [
+            384,
+            48,
+            179,
+            139
+          ]
+        },
+        {
+          "modality": "visual",
+          "signal": "frozen region while surroundings carry fresh noise",
+          "segment": {
+            "start": 3.0,
+            "end": 4.6,
+            "unit": "s"
+          },
+          "region": [
+            384,
+            48,
+            179,
+            139
+          ]
+        },
+        {
+          "modality": "visual",
+          "signal": "optical-flow jump / frame drop at cut",
+          "segment": {
+            "start": 5.96,
+            "end": 6.04,
+            "unit": "s"
+          }
+        },
+        {
+          "modality": "audio",
+          "signal": "splice discontinuity at cut",
+          "segment": {
+            "start": 5.95,
+            "end": 6.05,
+            "unit": "s"
+          }
+        }
+      ],
+      "should_not_trigger": [
+        "metadata"
+      ],
+      "notes": "Rendered from raw frames and encoded once, so no double-compression confound. Output is 7.6s long; region times are on the output timeline.",
+      "sha256": "9167e268f8b36beb7466d35b9d3c057b001ac73c906c1d47ff7f46512d76bbea"
+    },
+    "04_reencoded_3x.mp4": {
+      "ground_truth": "authentic_content_recompressed",
+      "expected_verdict": "inconclusive",
+      "acceptable_verdicts": [
+        "inconclusive",
+        "likely authentic"
+      ],
+      "parent": "01_clean.mp4",
+      "manipulations": [
+        {
+          "type": "recompression",
+          "generations": 3,
+          "params": [
+            {
+              "crf": 23,
+              "gop": 30
+            },
+            {
+              "crf": 27,
+              "gop": 45
+            },
+            {
+              "crf": 24,
+              "gop": 60
+            }
+          ]
+        }
+      ],
+      "should_trigger": [
+        {
+          "modality": "visual",
+          "signal": "double/multiple compression traces"
+        },
+        {
+          "modality": "metadata",
+          "signal": "GOP / I-frame spacing differs from typical camera output"
+        }
+      ],
+      "should_not_trigger": [
+        "sync"
+      ],
+      "notes": "Content unaltered; tests that compression alone lowers confidence rather than flipping to manipulated.",
+      "sha256": "30028aae982de358e272e77dc85ecfa5affa341cc8ea165159a8d5ac7506d700"
+    },
+    "05_metadata_edited.mp4": {
+      "ground_truth": "manipulated_metadata",
+      "expected_verdict": "likely manipulated",
+      "acceptable_verdicts": [
+        "likely manipulated",
+        "inconclusive"
+      ],
+      "parent": "01_clean.mp4",
+      "manipulations": [
+        {
+          "type": "metadata_forgery",
+          "fields": {
+            "format.creation_time (mvhd)": "2019-03-14T09:26:53.000000Z",
+            "video track tkhd/mdhd times": "2024-11-02T17:40:12Z",
+            "audio track tkhd/mdhd times": "2023-01-07T08:00:00Z",
+            "com.apple.quicktime.software": "Adobe Premiere Pro 2023.0 (Windows)",
+            "make/model": "Apple iPhone 15 Pro",
+            "comment": "Original camera footage, unedited",
+            "filesystem_mtime": "2018-07-01T12:00:00Z"
+          }
+        }
+      ],
+      "should_trigger": [
+        {
+          "modality": "metadata",
+          "signal": "mvhd vs per-track tkhd/mdhd creation times disagree (and tracks post-date container)"
+        },
+        {
+          "modality": "metadata",
+          "signal": "claimed iPhone make/model but encoder=Lavf and x264 SEI in stream"
+        },
+        {
+          "modality": "metadata",
+          "signal": "editing-software tag contradicts 'unedited camera footage' comment"
+        },
+        {
+          "modality": "metadata",
+          "signal": "filesystem mtime predates claimed creation",
+          "caveat": "mtime is lost on HTTP upload; only visible if read from disk"
+        },
+        {
+          "modality": "provenance",
+          "signal": "sha256 differs from 01 but perceptual hash identical"
+        }
+      ],
+      "should_not_trigger": [
+        "visual",
+        "audio",
+        "sync"
+      ],
+      "notes": "Audio/video streams are bit-exact copies of 01; only container metadata changed (track times hex-edited).",
+      "sha256": "66bd62af863f7d4bd3f42b83b510b185bffa57d551fe78689de35cfbdaa665a0"
+    },
+    "06_derived_a.mp4": {
+      "ground_truth": "authentic_derivative",
+      "expected_verdict": "likely authentic",
+      "acceptable_verdicts": [
+        "likely authentic",
+        "inconclusive"
+      ],
+      "parent": "01_clean.mp4",
+      "manipulations": [
+        {
+          "type": "derivation",
+          "ops": [
+            "trim 1.0-7.0s",
+            "scale 480w",
+            "re-encode crf24"
+          ]
+        }
+      ],
+      "should_trigger": [
+        {
+          "modality": "provenance",
+          "signal": "perceptual-hash match to 01 (child); lineage edge 01 -> 06"
+        }
+      ],
+      "should_not_trigger": [
+        "sync",
+        "audio"
+      ],
+      "notes": "Benign derivative; lineage only.",
+      "sha256": "988d5552c6caa70b25978bf77d57fefb25cf97d614f155b807cef1d45a54ee48"
+    },
+    "07_derived_b.mp4": {
+      "ground_truth": "authentic_derivative",
+      "expected_verdict": "likely authentic",
+      "acceptable_verdicts": [
+        "likely authentic",
+        "inconclusive"
+      ],
+      "parent": "06_derived_a.mp4",
+      "manipulations": [
+        {
+          "type": "derivation",
+          "ops": [
+            "crop 90%",
+            "scale 432w",
+            "brightness +0.04",
+            "re-encode crf28"
+          ]
+        }
+      ],
+      "should_trigger": [
+        {
+          "modality": "provenance",
+          "signal": "perceptual-hash match to 06 and 01; lineage 01 -> 06 -> 07"
+        }
+      ],
+      "should_not_trigger": [
+        "sync",
+        "audio"
+      ],
+      "notes": "Copy of a copy; lineage graph should order it after 06.",
+      "sha256": "bd8f5cc8fdb819f8af3219fd10aeb9ccf0f3f381f8670a0b1520f7c032676b4a"
+    }
+  }
+}

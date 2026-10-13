@@ -1,0 +1,11 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.7
+python-multipart>=0.0.9
+pytest>=8
+httpx>=0.27
+cryptography>=42
+mediapipe>=0.10
+opencv-contrib-python>=4.9
+numpy>=1.26
+fpdf2>=2.7
